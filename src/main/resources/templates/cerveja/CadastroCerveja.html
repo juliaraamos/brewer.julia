@@ -98,21 +98,21 @@
 							<label for="valor">Valor</label>
 							<div class="input-group">
 								<div class="input-group-addon">R$</div>
-								<input id="valor" type="text" class="form-control js-decimal" th:field="*{valor}"/>
+								<input id="valor" type="text" data-decimal="," data-thousands="." class="form-control js-decimal" th:field="*{valor}" />
 							</div>
 						</div>
 						
 						<div class="col-sm-3 form-group">
 							<label for="comissao">Comissão</label>
 							<div class="input-group">
-								<input id="comissao" type="text" class="form-control js-decimal" th:field="*{comissao}"/>
+								<input id="comissao" type="text" data-decimal="," data-thousands="." class="form-control js-decimal" th:field="*{comissao}" />
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
 						
 						<div class="col-sm-3 form-group">
 							<label for="estoque">Estoque</label>
-							<input id="estoque" type="text" class="form-control js-plain" th:field="*{quantidadeEstoque}"/>
+							<input id="estoque" type="text" data-decimal="," data-thousands="." class="form-control js-plain" th:field="*{quantidadeEstoque}"/>
 						</div>
 						
 					</div>
