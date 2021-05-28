@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.julia.brewer.model.Cerveja;
 import com.julia.brewer.model.Estilo;
 import com.julia.brewer.service.CadastroEstiloService;
+import com.julia.brewer.service.exception.NomeEstiloJaCadastradoException;
 
 
 @Controller
@@ -33,10 +33,15 @@ public class EstilosController {
 		if (result.hasErrors()) {
 			return novo(estilo);
 		} 
-		//salvar no banco de dados...
+
+		try {
+			cadastroEstiloService.salvar(estilo);	
+		} catch (NomeEstiloJaCadastradoException e) {
+			result.rejectValue("nome", e.getMessage(), e.getMessage());
+			return novo(estilo);
+		}
 		
-		cadastroEstiloService.salvar(estilo);	
-		attributes.addFlashAttribute("mensagem", "Estilo salvo com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Estilo salvo com sucesso!");	
 		return new ModelAndView("redirect:/estilos/novo");			
 		}
 }
