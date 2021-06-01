@@ -49,9 +49,20 @@ public class EstilosController {
 		return new ModelAndView("redirect:/estilos/novo");			
 		}
 	
-	@RequestMapping(value = "/estilos/", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<?> salvar(@RequestBody Estilo estilo) {
-		System.out.println(">>>>> estilo: " + estilo.getNome());
-		return ResponseEntity.badRequest().body("Erro salvando estilo");
+	@RequestMapping(value = "/estilos", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
+		}
+		
+		try {
+			
+			estilo = cadastroEstiloService.salvar(estilo);
+		
+		} catch (NomeEstiloJaCadastradoException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
+		return ResponseEntity.ok(estilo);
 	}
 }
