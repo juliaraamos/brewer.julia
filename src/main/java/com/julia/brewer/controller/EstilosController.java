@@ -21,18 +21,19 @@ import com.julia.brewer.service.exception.NomeEstiloJaCadastradoException;
 
 
 @Controller
+@RequestMapping("/estilos")
 public class EstilosController {
 	
 	@Autowired
 	private CadastroEstiloService cadastroEstiloService;
 	
-	@RequestMapping("/estilos/novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Estilo estilo) {
 		ModelAndView mv = new ModelAndView("estilo/CadastroEstilo");
 		return mv;
 	}
 	
-	@RequestMapping(value = "/estilos/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Estilo estilo, BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return novo(estilo);
@@ -49,7 +50,7 @@ public class EstilosController {
 		return new ModelAndView("redirect:/estilos/novo");			
 		}
 	
-	@RequestMapping(value = "/estilos", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result) {
 		if (result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
