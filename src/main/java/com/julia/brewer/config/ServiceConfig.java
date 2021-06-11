@@ -1,9 +1,12 @@
 package com.julia.brewer.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.julia.brewer.service.CadastroCervejaService;
+import com.julia.brewer.storage.FotoStorage;
+import com.julia.brewer.storage.local.FotoStorageLocal;
 
 
 
@@ -12,11 +15,9 @@ import com.julia.brewer.service.CadastroCervejaService;
 @ComponentScan(basePackageClasses = CadastroCervejaService.class)
 public class ServiceConfig {
 
-	/*@Autowired
-	private Cervejas cervejas;
-	
-	public void salvar(Cerveja cerveja) {
-		cervejas.save(cerveja);
-	}*/
+	@Bean
+	public FotoStorage fotoStorage() {
+		return new FotoStorageLocal();
+	}
 	
 }
