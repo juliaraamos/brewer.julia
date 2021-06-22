@@ -22,13 +22,12 @@ public class FotoStorageLocal implements FotoStorage {
 	private Path localTemporario;
 	
 	public FotoStorageLocal() {
-		this.local = getDefault().getPath(System.getenv("HOME"), ".brewerfotos");
-		criarPastas();
+		this(getDefault().getPath(System.getProperty("USERHOME"), ".brewerfotos"));
 	}
 	
 	public FotoStorageLocal(Path path) {
 		this.local = path;
-		criarPastas();oto
+		criarPastas();
 	}
 	
 	@Override
@@ -37,9 +36,10 @@ public class FotoStorageLocal implements FotoStorage {
 		if (files != null && files.length > 0) {
 			MultipartFile arquivo = files[0];
 			novoNome = renomearArquivo(arquivo.getOriginalFilename());
+			
 			try {
 				arquivo.transferTo(new File(this.localTemporario.toAbsolutePath().toString() + getDefault().getSeparator() + novoNome));
-			} catch (IllegalStateException | IOException e) {
+			} catch (IOException e) {
 				throw new RuntimeException("Erro salvando a foto na pasta temporária", e); 
 			}
 		}
@@ -64,6 +64,15 @@ public class FotoStorageLocal implements FotoStorage {
 		
 	}
 	
+	@Override
+	public byte[] recuperarFotoTemporaria(String nome) {
+		try {
+			return Files.readAllBytes(this.localTemporario.resolve(nome));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro lendo a foto temporária", e);
+		}
+	}
+	
 	private String renomearArquivo(String nomeOriginal) {
 		String novoNome = UUID.randomUUID().toString() + "_" + nomeOriginal;
 		
@@ -73,5 +82,6 @@ public class FotoStorageLocal implements FotoStorage {
 		
 		return novoNome;
 	}
-	
+
+
 }
