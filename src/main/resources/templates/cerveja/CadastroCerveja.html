@@ -128,7 +128,7 @@
 						
 							<label class="control-label">Foto</label>
 							
-							<div class="js-foto-cerveja">
+							<div class="js-container-foto-cerveja">
 								<div id="upload-drop" class="bw-upload">
 									<i class="glyphicon glyphicon-cloud-upload"></i>
 									<span>Arraste a foto aqui ou</span>	
@@ -162,16 +162,29 @@
 				allow: '*.(jpg|jpeg|png)',
 				action: '/brewer/fotos',
 				complete: function(resposta){
-					$('input[name=foto]').val(resposta.nome);
-					$('input[name=contentType]').val(resposta.contentType);
+					var inputNomeFoto = $('input[nome=foto]');
+					var inputContentType = $('input[name=contentType]');
 					
 					var htmlFotoCervejaTemplate = $('#foto-cerveja').html();
 					var template = Handlebars.compile(htmlFotoCervejaTemplate);
 					var htmlFotoCerveja = template({nomeFoto: resposta.nome});
 					
-					$('#upload-drop').addClass('hidden');
-					var containerFotoCerveja = $('.js-foto-cerveja');
+					var containerFotoCerveja = $('.js-container-foto-cerveja');
+
+					var uploadDrop = $('#upload-drop');
+					
+					inputNomeFoto.val(resposta.nome);
+					inputContentType.val(resposta.contentType);				
+		
+					uploadDrop.addClass('hidden');
 					containerFotoCerveja.append(htmlFotoCerveja);
+					
+					$('.js-remove-foto').on('click', function(){
+						$('.js-foto-cerveja').remove();
+						uploadDrop.removeClass('hidden');
+						inputNomeFoto.val('');
+						inputContentType.val('');
+					});
 				}
 		}
 		
