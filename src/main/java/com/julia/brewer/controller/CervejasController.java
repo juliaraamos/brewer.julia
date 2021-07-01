@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.julia.brewer.model.Cerveja;
 import com.julia.brewer.model.Origem;
 import com.julia.brewer.model.Sabor;
+import com.julia.brewer.repository.Cervejas;
 import com.julia.brewer.repository.Estilos;
 import com.julia.brewer.service.CadastroCervejaService;
 
@@ -32,6 +33,9 @@ public class CervejasController {
 	
 	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
+	
+	@Autowired
+	private Cervejas cervejas;
 	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cerveja cerveja) {		
@@ -58,6 +62,11 @@ public class CervejasController {
 	@GetMapping
 	public ModelAndView pesquisar() {
 		ModelAndView mv = new ModelAndView("cerveja/PesquisaCervejas");
+		mv.addObject("estilos", estilos.findAll());
+		mv.addObject("sabores", Sabor.values());
+		mv.addObject("origens", Origem.values());
+		
+		mv.addObject("cervejas", cervejas.findAll());
 		return mv;
 	}
 }
