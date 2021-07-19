@@ -15,8 +15,7 @@ public class CervejaListener {
 	
 	@EventListener(condition = "#evento.temFoto()")
 	public void cervejaSalva(CervejaSalvaEvent evento) {
-		System.out.println("Nova cerveja salva: " + evento.getCerveja().getNome());
 		//fotoStorage.salvar(evento.getCerveja().getFoto());
-		System.out.println(">>>> tem foto sim: " + evento.getCerveja());
+		System.out.println(">>>> tem foto sim: " + evento.getCerveja().getFoto());
 	}
 }
