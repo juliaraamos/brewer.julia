@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 import com.julia.brewer.validation.SKU;
 
@@ -40,7 +41,7 @@ public class Cerveja {
 	private String nome;
 	
 	@NotBlank(message = " Descrição é obrigatório")
-	@Size(max = 50, message = " O tamanho da descrição deve estar entre 1 e 50") 
+	@Size(max = 140, message = " O tamanho da descrição deve estar entre 1 e 140 caracteres") 
 	private String descricao;
 	
 	@NotNull(message = " O valor é obrigatório")
@@ -189,6 +190,10 @@ public class Cerveja {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
+	
+	public String getFotoOuMock() {
+		return !StringUtils.isEmpty(foto) ? foto : "cerveja-mock.png";
+	}
 
 	@Override
 	public int hashCode() {
@@ -197,6 +202,7 @@ public class Cerveja {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
