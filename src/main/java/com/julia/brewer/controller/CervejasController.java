@@ -3,6 +3,7 @@ package com.julia.brewer.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -69,10 +70,8 @@ public class CervejasController {
 		mv.addObject("sabores", Sabor.values());
 		mv.addObject("origens", Origem.values());
 		
-		//System.out.println(">>>> pageNumber: " + pageable.getPageNumber());
-		//System.out.println(">>>> pageSize: " + pageable.getPageSize());
-		
-		mv.addObject("cervejas", cervejas.filtrar(cervejaFilter, pageable));
+		Page<Cerveja> pagina = cervejas.filtrar(cervejaFilter, pageable);
+		mv.addObject("pagina", pagina);
 		return mv;
 	}
 }
