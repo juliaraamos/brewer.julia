@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
@@ -35,6 +36,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @ComponentScan(basePackageClasses = { CervejasController.class })
 // essa classe vai ensinar o spring a encontrar os controllers
 @EnableWebMvc
+@EnableSpringDataWebSupport
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
