@@ -14,7 +14,7 @@ import com.julia.brewer.thymeleaf.processor.OrderElementTagProcessor;
 public class BrewerDialect extends AbstractProcessorDialect{
 
 	public BrewerDialect() {
-		super("bJúlia Brewer", "brewer", StandardDialect.PROCESSOR_PRECEDENCE);
+		super("Júlia Brewer", "brewer", StandardDialect.PROCESSOR_PRECEDENCE);
 	}
 	
 	@Override
