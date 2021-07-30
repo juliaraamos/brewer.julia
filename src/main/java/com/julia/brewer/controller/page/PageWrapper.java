@@ -67,6 +67,20 @@ public class PageWrapper<T> {
 		
 		return direcao;
 	}
+	
+	public boolean descendente(String propriedade) {
+		return inverterDirecao(propriedade).equals("desc");
+	}
+	
+	public boolean ordenada(String propriedade) {
+		Order order = page.getSort() != null ?  page.getSort().getOrderFor(propriedade) : null;
+	
+		if (order == null) {
+			return false;
+		}
+		
+		return page.getSort().getOrderFor(propriedade) != null ? true : false;
+	}
 }
 
 
