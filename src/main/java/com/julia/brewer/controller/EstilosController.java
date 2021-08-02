@@ -77,6 +77,7 @@ public class EstilosController {
 		mv.addObject("estilos", estilos.findAll());
 		
 		PageWrapper<Estilo> paginaWrapper = new PageWrapper<>(estilos.filtrar(estiloFilter, pageable), httpServletRequest);
+		
 		mv.addObject("pagina", paginaWrapper);
 		return mv;
 	}
