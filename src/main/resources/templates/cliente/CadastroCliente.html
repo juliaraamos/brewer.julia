@@ -86,11 +86,11 @@
 				<input id="cep" type="text" class="form-control js-cep-mask"/>
 			</div>
 							
-			<div class="col-sm-4 form-group bw-required">
+			<div class="col-sm-4 form-group">
 				<label for="estado" class="control-label">Estado</label>
 				<select id="estado" class="form-control">
 					<option value="">Selecione o estado</option>
-					<option value="1">Bahia</option>
+					<option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">São Paulo</option> 
 				</select>
 			</div>
 				
