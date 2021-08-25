@@ -11,6 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "cliente")
@@ -22,8 +26,10 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 	
+	@NotNull(message = "Tipo pessoa é obrigatório")
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_pessoa")
 	private TipoPessoa tipoPessoa;
@@ -33,6 +39,7 @@ public class Cliente implements Serializable{
 	
 	private String telefone;
 	
+	@Email(message = "E-mail inválido")
 	private String email;
 	
 	@Embedded

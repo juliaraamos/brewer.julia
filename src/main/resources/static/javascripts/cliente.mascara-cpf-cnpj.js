@@ -10,21 +10,26 @@ Brewer.MascaraCpfCnpj = (function(){
 	
 	MascaraCpfCnpj.prototype.iniciar = function() {
 		this.radioTipoPessoa.on('change', onTipoPessoaAlterado.bind(this));
+		var tipoPessoaSelecionada = this.radioTipoPessoa.filter(':checked')[0];
+		if (tipoPessoaSelecionada) {
+			aplicarMascara.call(this, $(tipoPessoaSelecionada));
+		}
 	}
 	
 	function onTipoPessoaAlterado(evento){
 		var tipoPessoaSelecionada = $(evento.currentTarget); 
-		
-		console.log(tipoPessoaSelecionada.attr('data-documento'));
-		console.log(tipoPessoaSelecionada.attr('data-mascara'));
-		
-		this.labelCpfCnpj.text(tipoPessoaSelecionada.attr('data-documento'));
-		this.inputCpfCnpj.mask(tipoPessoaSelecionada.attr('data-mascara'));
+		aplicarMascara.call(this, tipoPessoaSelecionada);
 		this.inputCpfCnpj.val('');
-		this.inputCpfCnpj.removeAttr('disabled');
 	}
 	
+	function aplicarMascara(tipoPessoaSelecionada){
+		this.labelCpfCnpj.text(tipoPessoaSelecionada.attr('data-documento'));
+		this.inputCpfCnpj.mask(tipoPessoaSelecionada.attr('data-mascara'));
+		this.inputCpfCnpj.removeAttr('disabled');
+	}
+		
 	return MascaraCpfCnpj;
+	
 }());
 
 $(function(){
