@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.julia.brewer.model.Cliente;
 import com.julia.brewer.model.TipoPessoa;
@@ -29,12 +30,13 @@ public class ClientesController {
 	}
 	
 	@PostMapping("/novo")
-	public ModelAndView salvar(@Valid Cliente cliente, BindingResult result) {
+	public ModelAndView salvar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return novo(cliente);
 		}
 		
 		//TO-DO: Salvar e adicionar mensagem
+		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo"); 
 	}
 	
