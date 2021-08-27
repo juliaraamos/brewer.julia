@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.julia.brewer.model.Cliente;
 import com.julia.brewer.model.TipoPessoa;
 import com.julia.brewer.repository.Estados;
+import com.julia.brewer.service.CadastroClienteService;
 
 @Controller
 @RequestMapping("/clientes")
@@ -20,6 +21,9 @@ public class ClientesController {
 	
 	@Autowired
 	private Estados estados;
+	
+	@Autowired
+	private CadastroClienteService cadastroClienteService; 
 	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Cliente cliente) {
@@ -35,7 +39,7 @@ public class ClientesController {
 			return novo(cliente);
 		}
 		
-		//TO-DO: Salvar e adicionar mensagem
+		cadastroClienteService.salvar(cliente);
 		attributes.addFlashAttribute("mensagem", "Cliente salvo com sucesso!");
 		return new ModelAndView("redirect:/clientes/novo"); 
 	}
