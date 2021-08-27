@@ -61,7 +61,7 @@
 						<input id="telefone" type="text" class="form-control js-phone-number" th:field="*{telefone}"/>
 					</div>
 								
-					<div class="col-sm-9 form-group bw-required" brewer:classforerror="email">
+					<div class="col-sm-9 form-group" brewer:classforerror="email">
 						<label for="email" class="control-label">E-mail</label>
 						<input id="email" type="text" class="form-control" th:field=*{email}/>			
 					</div>
@@ -82,7 +82,7 @@
 					<label for="complemento">Complemento</label>
 					<input id="complemento" type="text" class="form-control" th:field="*{endereco.complemento}"/>			
 				</div>
-			</div>
+			</div>ient
 			
 				<div class="row">	
 					<div class="col-sm-4 form-group bw-required">
@@ -101,6 +101,7 @@
 					<div class="col-sm-4 form-group bw-required">
 						<label for="cidade">Cidade</label>
 						<div class="bw-field-action">
+							<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}"/>
 							<select id="cidade" class="form-control" data:url="@{/cidades}" th:field=*{endereco.cidade}>	
 							</select>
 							
