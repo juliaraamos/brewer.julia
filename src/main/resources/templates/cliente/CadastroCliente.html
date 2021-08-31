@@ -41,7 +41,7 @@
 								<div class="radio radio-inline">
 									<input type="radio" th:id="|id_${tipoPessoa}|" class="js-radio-tipo-pessoa" 
 									th:field="*{tipoPessoa}" th:value="${tipoPessoa}"
-									data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}" onchange="onTipoPessoaAlterado()">
+									data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}">
 									<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}">Física</label>
 								</div>		
 							</th:block>

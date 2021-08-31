@@ -14,6 +14,7 @@ import com.julia.brewer.model.Cliente;
 import com.julia.brewer.model.TipoPessoa;
 import com.julia.brewer.repository.Estados;
 import com.julia.brewer.service.CadastroClienteService;
+import com.julia.brewer.service.exception.CpfCnpjClienteJaCadastroException;
 
 @Controller
 @RequestMapping("/clientes")
@@ -36,6 +37,13 @@ public class ClientesController {
 	@PostMapping("/novo")
 	public ModelAndView salvar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
+			return novo(cliente);
+		}
+		
+		try {
+			cadastroClienteService.salvar(cliente);
+		} catch (CpfCnpjClienteJaCadastroException e) {
+			result.rejectValue("cpfOuCnpj", e.getMessage(), e.getMessage());
 			return novo(cliente);
 		}
 		
